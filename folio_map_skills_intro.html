@@ -1,0 +1,142 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+#app{padding:1.5rem 0;max-width:660px;font-family:var(--font-sans);}
+.screen{display:none;}.screen.active{display:block;}
+.overline{font-size:11px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.75rem;}
+.hero{font-size:22px;font-weight:500;color:var(--color-text-primary);line-height:1.4;margin-bottom:1rem;}
+.body{font-size:15px;color:var(--color-text-secondary);line-height:1.75;margin-bottom:1.25rem;}
+.pull{border-left:2px solid #1D9E75;padding:.75rem 1rem;margin:1.5rem 0;background:#E1F5EE;border-radius:0;}
+.pull p{font-size:15px;color:#085041;line-height:1.7;font-style:italic;}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin:1.5rem 0;}
+.ccard{background:var(--color-background-primary);border:.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:.875rem 1rem;}
+.cl{font-size:11px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.3rem;}
+.ct{font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:.3rem;}
+.cd{font-size:12px;color:var(--color-text-secondary);line-height:1.6;}
+.ibox{background:var(--color-background-secondary);border:.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;margin:1.5rem 0;}
+.il{font-size:11px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.75rem;}
+.mrow{display:flex;gap:10px;margin-bottom:.75rem;}
+.mtile{flex:1;border-radius:var(--border-radius-md);overflow:hidden;border:.5px solid var(--color-border-tertiary);cursor:pointer;transition:border-color .15s;}
+.mtile:hover{border-color:var(--color-border-primary);}
+.mtile.sel{border:2px solid #1D9E75;}
+.mtile svg{display:block;width:100%;}
+.tlbl{font-size:11px;color:var(--color-text-secondary);padding:6px 8px;background:var(--color-background-primary);text-align:center;}
+.rbox{background:#E1F5EE;border:.5px solid #5DCAA5;border-radius:var(--border-radius-md);padding:.875rem 1rem;font-size:13px;color:#085041;line-height:1.7;display:none;margin-top:.75rem;}
+.rbox.on{display:block;}
+.snav{display:flex;gap:8px;margin-top:1.5rem;align-items:center;}
+.nb{padding:.6rem 1.1rem;background:var(--color-background-primary);border:.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:14px;color:var(--color-text-primary);cursor:pointer;}
+.nb:hover{background:var(--color-background-secondary);}
+.nb.p{background:#1D9E75;border-color:#1D9E75;color:#fff;}
+.nb.p:hover{background:#0F6E56;}
+.dots{display:flex;gap:6px;align-items:center;margin-right:auto;}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--color-border-secondary);}
+.dot.a{background:#1D9E75;}.dot.d{background:#9FE1CB;}
+.ws{display:flex;gap:12px;margin-bottom:1rem;align-items:flex-start;}
+.sn{width:24px;height:24px;border-radius:50%;background:#E1F5EE;border:.5px solid #5DCAA5;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#085041;flex-shrink:0;margin-top:2px;}
+.sb{font-size:14px;color:var(--color-text-primary);line-height:1.7;}
+.hl{background:#E1F5EE;color:#085041;padding:1px 5px;border-radius:3px;font-weight:500;}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);border:0;}
+</style>
+<h2 class="sr-only">Folio Interactive — Map Skills lesson introduction for 9th grade world geography. Three-part guided intro before practice questions.</h2>
+<div id="app">
+<div class="screen active" id="s0">
+  <div class="overline">World Geography · Grade 9 · Unit 1</div>
+  <div class="hero">Here's a strange thought: every map you've ever seen is a lie.</div>
+  <div class="body">Not a malicious one. An unavoidable one. The Earth is a sphere. Paper is flat. No matter how clever your math, you cannot perfectly flatten a sphere without tearing, stretching, or squishing something. Every map trades one kind of accuracy for another.</div>
+  <div class="pull"><p>"A map is not the territory — it's a simplified model designed to answer a specific question. The question determines which lies are acceptable."</p></div>
+  <div class="body">That's what this unit is about. Not memorizing where things are — but learning to read the language maps use to represent a world too big and curved to fit on a page. By the end, you'll know how to ask the right questions before you trust any map.</div>
+  <div class="overline" style="margin-top:1.5rem;margin-bottom:.75rem;">What you'll learn</div>
+  <div class="cgrid">
+    <div class="ccard"><div class="cl">Concept 1</div><div class="ct">Scale & distance</div><div class="cd">How a tiny measurement on paper translates to real kilometers on Earth.</div></div>
+    <div class="ccard"><div class="cl">Concept 2</div><div class="ct">Latitude & longitude</div><div class="cd">The global address system that locates any point with two numbers.</div></div>
+    <div class="ccard"><div class="cl">Concept 3</div><div class="ct">Map projections</div><div class="cd">Why flattening a sphere always involves a trade-off.</div></div>
+    <div class="ccard"><div class="cl">Concept 4</div><div class="ct">Legend & symbols</div><div class="cd">The decoder ring that turns a map from a picture into a tool.</div></div>
+  </div>
+  <div class="snav">
+    <div class="dots"><div class="dot a"></div><div class="dot"></div><div class="dot"></div></div>
+    <button class="nb p" onclick="go('s1')">Let's go →</button>
+  </div>
+</div>
+
+<div class="screen" id="s1">
+  <div class="overline">Part 1 of 3 · The projection problem</div>
+  <div class="hero">Which map is lying to you right now?</div>
+  <div class="body">Below are three ways cartographers have tried to flatten the Earth. Each preserves something — and sacrifices something else. Tap each map to find out what it gets right and what it gets wrong.</div>
+  <div class="ibox">
+    <div class="il">Tap a projection to inspect it</div>
+    <div class="mrow">
+      <div class="mtile" id="t-m" onclick="proj('m')">
+        <svg viewBox="0 0 140 80" aria-label="Mercator projection"><rect width="140" height="80" fill="#E6F1FB"/><ellipse cx="70" cy="40" rx="56" ry="33" fill="#B5D4F4" stroke="#378ADD" stroke-width="0.5"/><rect x="28" y="16" width="17" height="10" rx="1" fill="#378ADD" opacity="0.5"/><rect x="52" y="24" width="28" height="18" rx="1" fill="#378ADD" opacity="0.7"/><rect x="88" y="18" width="19" height="26" rx="1" fill="#378ADD" opacity="0.5"/><rect x="18" y="44" width="92" height="13" rx="1" fill="#378ADD" opacity="0.3"/><line x1="14" y1="40" x2="126" y2="40" stroke="#185FA5" stroke-width="0.5" stroke-dasharray="3,2"/><line x1="14" y1="22" x2="126" y2="22" stroke="#185FA5" stroke-width="0.3" stroke-dasharray="2,3"/><line x1="14" y1="58" x2="126" y2="58" stroke="#185FA5" stroke-width="0.3" stroke-dasharray="2,3"/></svg>
+        <div class="tlbl">Mercator (1569)</div>
+      </div>
+      <div class="mtile" id="t-p" onclick="proj('p')">
+        <svg viewBox="0 0 140 80" aria-label="Peters projection"><rect width="140" height="80" fill="#EAF3DE"/><ellipse cx="70" cy="40" rx="56" ry="36" fill="#C0DD97" stroke="#639922" stroke-width="0.5"/><rect x="28" y="22" width="17" height="16" rx="1" fill="#639922" opacity="0.5"/><rect x="52" y="26" width="26" height="24" rx="1" fill="#639922" opacity="0.7"/><rect x="88" y="24" width="17" height="20" rx="1" fill="#639922" opacity="0.5"/><rect x="18" y="42" width="90" height="12" rx="1" fill="#639922" opacity="0.3"/><line x1="14" y1="40" x2="126" y2="40" stroke="#3B6D11" stroke-width="0.5" stroke-dasharray="3,2"/></svg>
+        <div class="tlbl">Peters (1973)</div>
+      </div>
+      <div class="mtile" id="t-r" onclick="proj('r')">
+        <svg viewBox="0 0 140 80" aria-label="Robinson projection"><rect width="140" height="80" fill="#FAEEDA"/><ellipse cx="70" cy="40" rx="50" ry="33" fill="#FAC775" stroke="#BA7517" stroke-width="0.5"/><rect x="30" y="20" width="15" height="9" rx="1" fill="#BA7517" opacity="0.5"/><rect x="52" y="26" width="24" height="17" rx="1" fill="#BA7517" opacity="0.7"/><rect x="86" y="22" width="16" height="17" rx="1" fill="#BA7517" opacity="0.5"/><rect x="20" y="44" width="86" height="11" rx="1" fill="#BA7517" opacity="0.3"/><ellipse cx="70" cy="40" rx="50" ry="33" fill="none" stroke="#BA7517" stroke-width="0.5"/></svg>
+        <div class="tlbl">Robinson (1963)</div>
+      </div>
+    </div>
+    <div class="rbox" id="pbox"></div>
+  </div>
+  <div class="body">No single projection does everything well. Cartographers choose based on purpose — a sailor needs direction, a political analyst needs accurate area, a textbook wants something that simply looks right.</div>
+  <div class="snav">
+    <div class="dots"><div class="dot d"></div><div class="dot a"></div><div class="dot"></div></div>
+    <button class="nb" onclick="go('s0')">← Back</button>
+    <button class="nb p" onclick="go('s2')">Next →</button>
+  </div>
+</div>
+
+<div class="screen" id="s2">
+  <div class="overline">Part 2 of 3 · Worked example</div>
+  <div class="hero">Reading a map like a navigator</div>
+  <div class="body">In 1569, Gerardus Mercator published a map that changed ocean travel forever. A sailor could draw a straight line between two ports and follow that single compass bearing the whole way. Here's how to use map scale step by step.</div>
+  <div class="ibox">
+    <div class="il">Finding real distance from a map</div>
+    <div class="ws"><div class="sn">1</div><div class="sb">Find the map's <strong>scale</strong>. Our map shows <span class="hl">1 cm = 100 km</span> (ratio 1:10,000,000).</div></div>
+    <div class="ws"><div class="sn">2</div><div class="sb"><strong>Measure</strong> the distance. London to Cairo measures <span class="hl">35 mm</span> on this map.</div></div>
+    <div class="ws"><div class="sn">3</div><div class="sb"><strong>Convert units first:</strong> 35 mm = <span class="hl">3.5 cm</span>. Multiply: 3.5 × 100 km = <span class="hl">350 km</span>... but wait.</div></div>
+    <div class="ws"><div class="sn">4</div><div class="sb"><strong>Check your projection.</strong> On Mercator, a straight line is a constant compass bearing — not the shortest path on Earth. The actual shortest route is <span class="hl">3,500 km</span>. The map didn't lie — you just needed to know what question it was built to answer.</div></div>
+  </div>
+  <div class="body">Before you use any map, ask: <em>what was this built to show?</em> That tells you what to trust — and what to verify.</div>
+  <div class="snav">
+    <div class="dots"><div class="dot d"></div><div class="dot d"></div><div class="dot a"></div></div>
+    <button class="nb" onclick="go('s1')">← Back</button>
+    <button class="nb p" onclick="go('s3')">I'm ready to practice →</button>
+  </div>
+</div>
+
+<div class="screen" id="s3">
+  <div class="overline">Ready to practice</div>
+  <div class="hero">You've got the foundation. Now let's test it.</div>
+  <div class="body">You covered three big ideas: why every flat map is an unavoidable trade-off, how projections solve different problems, and how to extract real distances from map scale. The questions ahead push on all of these — and a few more map skills.</div>
+  <div class="pull"><p>You're not being tested on whether you memorized facts. You're being tested on whether you understand how maps work — and why that matters.</p></div>
+  <div class="body">If you get something wrong, you'll get a targeted explanation — not just the right answer, but why your specific reasoning went sideways and how to fix it.</div>
+  <div class="snav" style="margin-top:1.5rem;">
+    <div class="dots"><div class="dot d"></div><div class="dot d"></div><div class="dot d"></div></div>
+    <button class="nb" onclick="go('s2')">← Review</button>
+    <button class="nb p" onclick="sendPrompt('Load the Map Skills practice questions')">Start practice questions ↗</button>
+  </div>
+</div>
+</div>
+
+<script>
+const pd={
+  m:{g:"Preserves shape and direction — a straight line equals a constant compass bearing (rhumb line). Essential for navigation.",b:"Massively distorts size near the poles. Greenland looks the size of Africa. Africa is 14 times larger.",v:"Built for: sailors. Trust it for: direction. Don't trust it for: comparing country sizes."},
+  p:{g:"Preserves area accurately — every region shown at its true proportional size relative to others.",b:"Distorts shape badly, especially near the equator. Countries look stretched vertically.",v:"Built for: political fairness and size comparison. Trust it for: relative area. Don't trust it for: shape or navigation."},
+  r:{g:"A deliberate compromise — accepts some distortion in both shape and area to produce a balanced, visually natural map.",b:"Doesn't excel at any single metric. Not ideal for navigation or precise area comparison.",v:"Built for: general reference and visual appeal. Used by National Geographic for decades."}
+};
+function proj(k){
+  document.querySelectorAll('.mtile').forEach(t=>t.classList.remove('sel'));
+  document.getElementById('t-'+k).classList.add('sel');
+  const d=pd[k];
+  const el=document.getElementById('pbox');
+  el.innerHTML=`<strong style="font-size:13px;">What it preserves:</strong> ${d.g}<br><br><strong style="font-size:13px;">What it sacrifices:</strong> ${d.b}<br><br><em style="font-size:12px;color:#0F6E56;">${d.v}</em>`;
+  el.classList.add('on');
+}
+function go(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+</script>
