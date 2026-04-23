@@ -1,40 +1,335 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Map Skills Practice — Folio Interactive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0;}
-#app{padding:1.5rem 0;max-width:660px;font-family:var(--font-sans);}
-.screen{display:none;}.screen.active{display:block;}
-.pbar{height:4px;background:var(--color-border-tertiary);border-radius:2px;margin-bottom:2rem;}
-.pfill{height:4px;background:#1D9E75;border-radius:2px;transition:width .4s ease;}
-.qlbl{font-size:12px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.5rem;}
-.qtxt{font-size:18px;font-weight:500;color:var(--color-text-primary);line-height:1.5;margin-bottom:.75rem;}
-.why{font-size:13px;color:var(--color-text-secondary);margin-bottom:1.5rem;line-height:1.6;padding:.75rem 1rem;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border-left:2px solid var(--color-border-secondary);border-radius:0;}
-.vbox{background:var(--color-background-secondary);border:.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin-bottom:1.5rem;}
-.cbtn{display:block;width:100%;text-align:left;padding:.75rem 1rem;margin-bottom:.5rem;background:var(--color-background-primary);border:.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:15px;color:var(--color-text-primary);cursor:pointer;transition:background .15s;}
-.cbtn:hover{background:var(--color-background-secondary);}
-.cbtn.ok{border-color:#1D9E75;background:#E1F5EE;color:#085041;}
-.cbtn.no{border-color:#E24B4A;background:#FCEBEB;color:#501313;}
-.cbtn:disabled{cursor:default;}
-.fbox{border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin:1rem 0;font-size:14px;line-height:1.7;}
-.fbox.ok{background:#E1F5EE;border:.5px solid #5DCAA5;color:#085041;}
-.fbox.no{background:#FAECE7;border:.5px solid #F0997B;color:#4A1B0C;}
-.flbl{font-weight:500;margin-bottom:.25rem;font-size:13px;}
-.mtag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:20px;background:#FAECE7;color:#712B13;border:.5px solid #F0997B;margin-bottom:.5rem;}
-.nxtbtn{margin-top:1rem;padding:.6rem 1.25rem;background:var(--color-background-primary);border:.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:14px;color:var(--color-text-primary);cursor:pointer;}
-.nxtbtn:hover{background:var(--color-background-secondary);}
-.sgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:1.5rem 0;}
-.scard{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:1rem;text-align:center;}
-.snum{font-size:24px;font-weight:500;color:var(--color-text-primary);}
-.slbl{font-size:12px;color:var(--color-text-secondary);margin-top:4px;}
-.ri{border:.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:.75rem 1rem;margin-bottom:.5rem;font-size:13px;}
-.ri.rg{border-left:3px solid #1D9E75;}.ri.rb{border-left:3px solid #E24B4A;}
-.rbtn{display:block;width:100%;padding:.75rem;background:var(--color-background-primary);border:.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:15px;color:var(--color-text-primary);cursor:pointer;margin-top:1rem;text-align:center;}
-.rbtn:hover{background:var(--color-background-secondary);}
-.overline{font-size:11px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.75rem;}
-.hero{font-size:22px;font-weight:500;color:var(--color-text-primary);line-height:1.4;margin-bottom:1rem;}
-.sr-only{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);border:0;}
+  :root {
+    --green:        #1D9E75;
+    --green-dark:   #0F6E56;
+    --green-light:  #E1F5EE;
+    --green-mid:    #5DCAA5;
+    --green-text:   #085041;
+    --red:          #E24B4A;
+    --red-light:    #FCEBEB;
+    --red-text:     #501313;
+    --orange-light: #FAECE7;
+    --orange-mid:   #F0997B;
+    --orange-text:  #4A1B0C;
+    --orange-dark:  #712B13;
+    --ink:          #1A1A1A;
+    --ink-mid:      #4A4A4A;
+    --ink-light:    #7A7A7A;
+    --border:       #E2E2E0;
+    --border-light: #EDEDE9;
+    --surface:      #F9F9F7;
+    --white:        #FFFFFF;
+    --font-serif:   'DM Serif Display', Georgia, serif;
+    --font-sans:    'DM Sans', system-ui, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--surface);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* Top bar */
+  .topbar {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: .75rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .logo {
+    font-family: var(--font-serif);
+    font-size: 17px;
+    color: var(--green);
+    letter-spacing: -.01em;
+  }
+  .breadcrumb {
+    font-size: 12px;
+    color: var(--ink-light);
+    letter-spacing: .03em;
+  }
+
+  /* Layout */
+  .wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  /* Screens */
+  .screen { display: none; }
+  .screen.active { display: block; animation: fadeUp .3s ease both; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Progress bar */
+  .pbar {
+    height: 4px;
+    background: var(--border-light);
+    border-radius: 2px;
+    margin-bottom: 2rem;
+    overflow: hidden;
+  }
+  .pfill {
+    height: 4px;
+    background: var(--green);
+    border-radius: 2px;
+    transition: width .4s ease;
+  }
+
+  /* Question */
+  .qlbl {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--green);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin-bottom: .6rem;
+  }
+  .qtxt {
+    font-family: var(--font-serif);
+    font-size: 21px;
+    color: var(--ink);
+    line-height: 1.4;
+    margin-bottom: .875rem;
+  }
+  .why {
+    font-size: 13px;
+    color: var(--ink-light);
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+    padding: .75rem 1rem;
+    background: var(--white);
+    border-radius: 8px;
+    border-left: 2px solid var(--border);
+    font-weight: 300;
+  }
+  .why strong { font-weight: 500; color: var(--ink-mid); }
+
+  /* Visual box */
+  .vbox {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Choice buttons */
+  .cbtn {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: .875rem 1rem;
+    margin-bottom: .5rem;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: var(--font-sans);
+    color: var(--ink);
+    cursor: pointer;
+    transition: background .15s, border-color .15s, transform .1s;
+    font-weight: 300;
+    line-height: 1.5;
+  }
+  .cbtn:hover:not(:disabled) {
+    background: var(--surface);
+    border-color: #bbb;
+    transform: translateX(2px);
+  }
+  .cbtn.ok {
+    border-color: var(--green);
+    background: var(--green-light);
+    color: var(--green-text);
+    font-weight: 400;
+  }
+  .cbtn.no {
+    border-color: var(--red);
+    background: var(--red-light);
+    color: var(--red-text);
+  }
+  .cbtn:disabled { cursor: default; }
+
+  /* Feedback */
+  .fbox {
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    margin: 1rem 0;
+    font-size: 14px;
+    line-height: 1.75;
+    font-weight: 300;
+  }
+  .fbox.ok {
+    background: var(--green-light);
+    border: 1px solid var(--green-mid);
+    color: var(--green-text);
+  }
+  .fbox.no {
+    background: var(--orange-light);
+    border: 1px solid var(--orange-mid);
+    color: var(--orange-text);
+  }
+  .flbl {
+    font-weight: 600;
+    margin-bottom: .35rem;
+    font-size: 13px;
+  }
+  .mtag {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 9px;
+    border-radius: 20px;
+    background: var(--orange-light);
+    color: var(--orange-dark);
+    border: 1px solid var(--orange-mid);
+    margin-bottom: .5rem;
+    font-weight: 500;
+  }
+  .divider {
+    margin-top: .875rem;
+    padding-top: .875rem;
+    border-top: 1px solid var(--orange-mid);
+    font-size: 13px;
+    color: var(--orange-dark);
+  }
+
+  /* Continue button */
+  .nxtbtn {
+    margin-top: 1rem;
+    padding: .65rem 1.35rem;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: var(--font-sans);
+    color: var(--ink);
+    cursor: pointer;
+    transition: background .15s;
+    font-weight: 500;
+  }
+  .nxtbtn:hover { background: var(--surface); }
+
+  /* Results screen */
+  .overline {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--green);
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    margin-bottom: .875rem;
+  }
+  .rh {
+    font-family: var(--font-serif);
+    font-size: 28px;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+  }
+
+  .sgrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin: 1.5rem 0;
+  }
+  .scard {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.1rem;
+    text-align: center;
+  }
+  .snum {
+    font-family: var(--font-serif);
+    font-size: 28px;
+    color: var(--ink);
+  }
+  .slbl {
+    font-size: 11px;
+    color: var(--ink-light);
+    margin-top: 4px;
+    font-weight: 500;
+    letter-spacing: .03em;
+  }
+
+  .ri {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: .875rem 1rem;
+    margin-bottom: .5rem;
+    font-size: 13px;
+    transition: border-color .15s;
+  }
+  .ri.rg { border-left: 3px solid var(--green); }
+  .ri.rb { border-left: 3px solid var(--red); }
+
+  .rbtn {
+    display: block;
+    width: 100%;
+    padding: .875rem;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: var(--font-sans);
+    color: var(--ink);
+    cursor: pointer;
+    margin-top: 1.25rem;
+    text-align: center;
+    transition: background .15s;
+    font-weight: 500;
+  }
+  .rbtn:hover { background: var(--surface); }
+
+  .back-link {
+    display: inline-block;
+    font-size: 13px;
+    color: var(--ink-light);
+    text-decoration: none;
+    margin-top: 1rem;
+    padding: .5rem 0;
+    border-bottom: 1px solid transparent;
+    transition: color .15s, border-color .15s;
+  }
+  .back-link:hover { color: var(--green); border-color: var(--green); }
+
+  @media (max-width: 520px) {
+    .qtxt { font-size: 18px; }
+    .sgrid { grid-template-columns: 1fr 1fr; }
+    .sgrid .scard:last-child { grid-column: span 2; }
+  }
 </style>
-<h2 class="sr-only">Folio Interactive — Map Skills practice questions for 9th grade world geography. 8 adaptive questions with diagnostic feedback on every wrong answer.</h2>
-<div id="app">
+</head>
+<body>
+
+<div class="topbar">
+  <span class="logo">Folio</span>
+  <span class="breadcrumb">World Geography · Grade 9 · Map Skills</span>
+</div>
+
+<div class="wrap">
+
+  <!-- Question screen -->
   <div class="screen active" id="qscreen">
     <div class="pbar"><div class="pfill" id="prog"></div></div>
     <div class="qlbl" id="qlbl"></div>
@@ -45,188 +340,255 @@
     <div id="feedback" style="display:none;"></div>
     <button class="nxtbtn" id="nxtbtn" style="display:none;" onclick="next()">Continue →</button>
   </div>
+
+  <!-- Results screen -->
   <div class="screen" id="results">
     <div class="overline">Lesson complete</div>
-    <svg style="width:100px;height:100px;display:block;margin:1.5rem auto;" viewBox="0 0 100 100">
-      <circle cx="50" cy="50" r="42" fill="none" stroke="var(--color-border-tertiary)" stroke-width="8"/>
-      <circle cx="50" cy="50" r="42" fill="none" stroke="#1D9E75" stroke-width="8" stroke-linecap="round" stroke-dasharray="264" stroke-dashoffset="264" id="sarc" transform="rotate(-90 50 50)" style="transition:stroke-dashoffset 1s ease;"/>
-      <text x="50" y="46" text-anchor="middle" font-size="22" font-weight="500" fill="var(--color-text-primary)" font-family="var(--font-sans)" id="spct"></text>
-      <text x="50" y="60" text-anchor="middle" font-size="10" fill="var(--color-text-secondary)" font-family="var(--font-sans)">score</text>
+
+    <svg style="width:110px;height:110px;display:block;margin:1.5rem auto 1rem;" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="42" fill="none" stroke="#E8E8E6" stroke-width="7"/>
+      <circle cx="50" cy="50" r="42" fill="none" stroke="#1D9E75" stroke-width="7"
+              stroke-linecap="round" stroke-dasharray="264" stroke-dashoffset="264"
+              id="sarc" transform="rotate(-90 50 50)"
+              style="transition:stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1);"/>
+      <text x="50" y="46" text-anchor="middle" font-size="21" font-weight="500"
+            fill="#1A1A1A" font-family="'DM Serif Display', serif" id="spct"></text>
+      <text x="50" y="61" text-anchor="middle" font-size="10"
+            fill="#7A7A7A" font-family="'DM Sans', sans-serif">score</text>
     </svg>
+
     <div class="sgrid">
       <div class="scard"><div class="snum" id="sc"></div><div class="slbl">Correct</div></div>
       <div class="scard"><div class="snum" id="sw"></div><div class="slbl">Needs review</div></div>
       <div class="scard"><div class="snum" id="st"></div><div class="slbl">Questions</div></div>
     </div>
+
     <div class="overline" style="margin-bottom:.5rem;">Question review</div>
     <div id="rlist"></div>
+
     <button class="rbtn" onclick="restart()">Try again</button>
+    <br>
+    <a href="folio_map_skills_intro.html" class="back-link">← Back to lesson</a>
   </div>
-</div>
+
+</div><!-- /wrap -->
+
 <script>
-const qs=[
-  {topic:"Scale & distance",
-   text:"A map has a scale of 1:1,000,000. Two cities measure 4 cm apart on the map. What is the real-world distance?",
-   why:"Map scale tells you the ratio between map distance and real distance. Understanding this lets you use any map as a measuring tool — not just a picture.",
-   visual:`<svg viewBox="0 0 400 75" style="width:100%;display:block;" aria-label="Scale diagram"><rect x="10" y="15" width="380" height="40" rx="4" fill="#E1F5EE" stroke="#5DCAA5" stroke-width="0.5"/><line x1="60" y1="28" x2="60" y2="48" stroke="#085041" stroke-width="1.5"/><line x1="340" y1="28" x2="340" y2="48" stroke="#085041" stroke-width="1.5"/><line x1="60" y1="38" x2="340" y2="38" stroke="#085041" stroke-width="1.5"/><text x="200" y="28" text-anchor="middle" font-size="11" fill="#085041" font-family="var(--font-sans)">1 cm = 10 km (scale 1:1,000,000)</text><text x="60" y="68" text-anchor="middle" font-size="10" fill="#0F6E56" font-family="var(--font-sans)">City A</text><text x="340" y="68" text-anchor="middle" font-size="10" fill="#0F6E56" font-family="var(--font-sans)">City B</text><text x="200" y="68" text-anchor="middle" font-size="10" fill="#0F6E56" font-family="var(--font-sans)">4 cm on map</text></svg>`,
-   choices:["4 km","40 km","400 km","4,000 km"],correct:1,
-   fc:"Exactly right. 4 cm × 1,000,000 = 4,000,000 cm. Convert: ÷ 100,000 = 40 km. The scale is a multiplier — map distance times the ratio gives you real distance.",
-   fw:["You skipped the scale entirely and treated the map measurement as if it were already in real-world kilometers. The scale 1:1,000,000 means every 1 cm on the map represents 10 km in reality. Always multiply first, then convert units.",
-       null,
-       "You multiplied correctly but stopped too early. 4 cm × 1,000,000 = 4,000,000 cm is right — but there are 100,000 cm in a kilometer, so the final answer is 40 km, not 400. The unit conversion is the step that's easy to skip.",
-       "You multiplied 4 by 1,000,000 and got 4,000,000 — but that's centimeters, not kilometers. Dividing by 100,000 cm/km gives you 40 km. The math was close; the unit conversion was the missing step."]},
-  {topic:"Latitude & longitude",
-   text:"Which coordinate system would you use to locate an exact point on Earth's surface?",
-   why:"Latitude and longitude form a global grid. Every location on Earth has a unique address using these two numbers — nothing else gives you that precision.",
-   visual:`<svg viewBox="0 0 400 115" style="width:100%;display:block;" aria-label="Globe with latitude and longitude lines"><ellipse cx="200" cy="58" rx="118" ry="52" fill="#E6F1FB" stroke="#378ADD" stroke-width="0.5"/><line x1="82" y1="58" x2="318" y2="58" stroke="#378ADD" stroke-width="1" stroke-dasharray="4,3"/><ellipse cx="200" cy="58" rx="118" ry="17" fill="none" stroke="#378ADD" stroke-width="0.5" stroke-dasharray="4,3"/><ellipse cx="200" cy="58" rx="118" ry="34" fill="none" stroke="#378ADD" stroke-width="0.5" stroke-dasharray="4,3"/><line x1="200" y1="6" x2="200" y2="110" stroke="#D85A30" stroke-width="1" stroke-dasharray="4,3"/><text x="328" y="61" font-size="10" fill="#185FA5" font-family="var(--font-sans)">Equator (0°)</text><text x="208" y="14" font-size="10" fill="#993C1D" font-family="var(--font-sans)">Prime Meridian</text><text x="88" y="28" font-size="10" fill="#185FA5" font-family="var(--font-sans)">Latitude</text><text x="88" y="88" font-size="10" fill="#993C1D" font-family="var(--font-sans)">Longitude</text></svg>`,
-   choices:["Topographic contour lines","Latitude and longitude","Cardinal directions only","Map scale"],correct:1,
-   fc:"Correct. Latitude measures how far north or south from the equator. Longitude measures how far east or west from the prime meridian. Together they create a unique global address for any point on Earth.",
-   fw:["Contour lines show elevation — how high or low terrain is — not horizontal location on Earth's surface. They'd tell you a point is on a mountain, but not where that mountain sits on the globe.",
-       null,
-       "Cardinal directions tell you which way to travel relative to where you already are. They're relative, not absolute. Without a starting coordinate, they can't pinpoint any specific location.",
-       "Map scale tells you the ratio between map distance and real-world distance. It's a measurement tool, not a location tool — it can tell you how far two points are apart, but not where they are on Earth."]},
-  {topic:"Map projections",
-   text:"The Mercator projection makes Greenland appear roughly the same size as Africa. In reality, Africa is about 14 times larger. Why does this distortion happen?",
-   why:"No flat map can perfectly represent a sphere. Every projection makes trade-offs. Knowing which trade-off a projection makes tells you what it's useful for — and when to distrust it.",
-   visual:null,
-   choices:["The mapmaker made an error","Greenland is actually larger than it looks on other maps","Flattening a sphere stretches areas near the poles","Mercator was designed for political purposes"],correct:2,
-   fc:"Exactly right. When you unroll a sphere onto a flat rectangle, the math forces horizontal stretching at high latitudes to keep grid lines consistent. Mercator preserved direction and local shape — essential for navigation — but paid the price in polar area distortion.",
-   fw:["Mercator wasn't careless — he was solving a specific engineering problem for sailors in 1569. The distortion is an unavoidable mathematical consequence of converting a sphere to a flat surface while preserving compass directions. It's a trade-off, not a mistake.",
-       "This gets it backwards. Greenland appears much larger than it actually is on Mercator — the projection inflates polar regions, not deflates them. On an equal-area map like Peters, Greenland shrinks dramatically compared to Africa.",
-       null,
-       "Mercator had no political agenda. He built his projection to solve a navigation problem: how to draw a straight line that represents a constant compass bearing. The size distortion at high latitudes is a geometric side effect, not an intention."]},
-  {topic:"Legend & symbols",
-   text:"You open a map and see a small box in the corner containing colored shapes, lines, and labels. What is this element called, and what is its purpose?",
-   why:"A map without a legend is a picture, not a tool. The legend decodes every symbol, color, and line — making the map readable by anyone, not just the person who made it.",
-   visual:`<svg viewBox="0 0 400 105" style="width:100%;display:block;" aria-label="Map legend example"><rect x="20" y="10" width="165" height="88" rx="6" fill="var(--color-background-primary)" stroke="var(--color-border-secondary)" stroke-width="0.5"/><text x="102" y="27" text-anchor="middle" font-size="11" font-weight="500" fill="var(--color-text-primary)" font-family="var(--font-sans)">Legend</text><circle cx="40" cy="46" r="5" fill="#378ADD"/><text x="52" y="50" font-size="11" fill="var(--color-text-primary)" font-family="var(--font-sans)">City</text><line x1="33" y1="66" x2="53" y2="66" stroke="#E24B4A" stroke-width="2.5"/><text x="60" y="70" font-size="11" fill="var(--color-text-primary)" font-family="var(--font-sans)">Highway</text><rect x="33" y="78" width="16" height="11" rx="2" fill="#9FE1CB"/><text x="55" y="87" font-size="11" fill="var(--color-text-primary)" font-family="var(--font-sans)">Park / forest</text></svg>`,
-   choices:["The title block — it names the map","The legend — it explains what symbols mean","The scale bar — it shows distance","The compass rose — it shows direction"],correct:1,
-   fc:"Correct. The legend — also called the key — is the decoder for every symbol, color, line, and pattern on the map. Without it, you're guessing what everything means.",
-   fw:["The title block names the map and identifies the region and date. It tells you what you're looking at — but it doesn't explain any of the symbols, colors, or lines on the map itself.",
-       null,
-       "The scale bar shows the ratio between map distance and real-world distance. It's a measuring tool. It doesn't decode what any symbol or color represents.",
-       "The compass rose shows orientation — which direction is north, south, east, and west on that map. Essential for navigation, but it doesn't explain any of the symbols or color coding."]},
-  {topic:"Cardinal directions",
-   text:"On most standard maps, which direction does 'up' typically represent?",
-   why:"Convention, not law. Most modern maps put north at the top — but this wasn't always true. The right habit is to verify orientation with the compass rose before trusting any map.",
-   visual:`<svg viewBox="0 0 400 96" style="width:100%;display:block;" aria-label="Compass rose"><circle cx="200" cy="48" r="38" fill="var(--color-background-secondary)" stroke="var(--color-border-tertiary)" stroke-width="0.5"/><polygon points="200,14 195,43 200,38 205,43" fill="#E24B4A"/><polygon points="200,82 195,53 200,58 205,53" fill="#888780"/><polygon points="165,48 193,43 188,48 193,53" fill="#888780"/><polygon points="235,48 207,43 212,48 207,53" fill="#888780"/><text x="200" y="11" text-anchor="middle" font-size="12" font-weight="500" fill="#A32D2D" font-family="var(--font-sans)">N</text><text x="200" y="94" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)" font-family="var(--font-sans)">S</text><text x="152" y="52" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)" font-family="var(--font-sans)">W</text><text x="248" y="52" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)" font-family="var(--font-sans)">E</text></svg>`,
-   choices:["South","East","North","It varies — always check the compass rose"],correct:3,
-   fc:"Sharp answer. North-up is the dominant modern convention, but the compass rose exists precisely because it isn't guaranteed. Medieval maps often put east at the top — which is where the word 'orientation' comes from. Always verify.",
-   fw:["South-up maps do exist — some Australian cartographers produce them as a point of perspective — but they're the rare exception. More importantly, the only way to know which way is up on any map is to check the compass rose, which is the real habit this question tests.",
-       "East was actually the top of many medieval maps, which is where the word 'orientation' comes from (orienting toward the orient). But in modern cartography, east-up is uncommon. Either way, assuming direction without checking is the mistake to avoid.",
-       "North is the most common answer and usually correct — but 'usually' is the problem. The right habit isn't knowing the convention; it's verifying with the compass rose every time you open an unfamiliar map. That's what this question is really testing.",
-       null]},
-  {topic:"Latitude & longitude",
-   text:"A location is described as 0°N, 0°E. What famous geographic intersection does this coordinate represent?",
-   why:"Zero latitude is the equator. Zero longitude is the prime meridian. Where they cross is the origin point of the entire global coordinate system — and it sits in open ocean.",
-   visual:null,
-   choices:["The North Pole","The center of the United States","The intersection of the equator and prime meridian, in the Gulf of Guinea","Greenwich, England"],correct:2,
-   fc:"Correct. 0°, 0° sits in the Gulf of Guinea off the west coast of Africa — informally called 'Null Island.' Greenwich is where the prime meridian passes on land, but 0°N, 0°E is in the open ocean.",
-   fw:["The North Pole is 90°N — maximum latitude, as far north as you can go. At the North Pole, longitude is actually undefined because all meridians converge at the same point. 0°N, 0°E is the geographic opposite — on the equator, at sea level.",
-       "The geographic center of the contiguous United States is roughly 39°N, 98°W — in Kansas. The US sits in the northern and western hemispheres, which means positive latitude and negative longitude. Neither coordinate is anywhere near zero.",
-       null,
-       "Greenwich, England is where the prime meridian (0° longitude) was defined and measured — but Greenwich sits at about 51°N latitude, not 0°N. The equator runs through the ocean far south of England. 0°N, 0°E is where those two lines actually cross."]},
-  {topic:"Scale & distance",
-   text:"Which map would show more detail about a single neighborhood: one with a scale of 1:1,000 or one with a scale of 1:1,000,000?",
-   why:"Large scale means smaller ratio number and more detail. Small scale means bigger ratio number and less detail. This is one of the most counterintuitive things about maps.",
-   visual:`<svg viewBox="0 0 400 85" style="width:100%;display:block;" aria-label="Large scale vs small scale map comparison"><rect x="10" y="12" width="175" height="62" rx="4" fill="#E1F5EE" stroke="#5DCAA5" stroke-width="0.5"/><text x="97" y="27" text-anchor="middle" font-size="10" fill="#085041" font-weight="500" font-family="var(--font-sans)">1:1,000 (large scale)</text><rect x="24" y="34" width="14" height="10" rx="2" fill="#5DCAA5"/><rect x="44" y="38" width="20" height="8" rx="2" fill="#5DCAA5"/><rect x="70" y="32" width="18" height="12" rx="2" fill="#5DCAA5"/><rect x="96" y="36" width="24" height="7" rx="2" fill="#5DCAA5"/><text x="97" y="68" text-anchor="middle" font-size="9" fill="#0F6E56" font-family="var(--font-sans)">Shows streets, buildings</text><rect x="215" y="12" width="175" height="62" rx="4" fill="#FAECE7" stroke="#F0997B" stroke-width="0.5"/><text x="302" y="27" text-anchor="middle" font-size="10" fill="#4A1B0C" font-weight="500" font-family="var(--font-sans)">1:1,000,000 (small scale)</text><rect x="228" y="32" width="145" height="32" rx="2" fill="#F5C4B3"/><text x="302" y="51" text-anchor="middle" font-size="9" fill="#993C1D" font-family="var(--font-sans)">Shows countries, regions</text><text x="302" y="68" text-anchor="middle" font-size="9" fill="#993C1D" font-family="var(--font-sans)">No street-level detail</text></svg>`,
-   choices:["1:1,000,000 — bigger numbers mean more detail","1:1,000 — the smaller the ratio, the more detail per area","They would show equal detail","It depends on the map's purpose"],correct:1,
-   fc:"Correct. 1:1,000 means 1 cm = 10 meters — you can show individual buildings. 1:1,000,000 means 1 cm = 10 km — a whole neighborhood barely registers. Counterintuitively, the 'larger scale' map has the smaller ratio number.",
-   fw:["This is the most common misconception about scale — bigger ratio number does not mean more detail. It means the opposite. A bigger ratio means the real world is compressed more onto the map, so less detail fits. 1:1,000,000 shows countries; 1:1,000 shows buildings.",
-       null,
-       "The two scales show dramatically different detail levels. At 1:1,000 you can map individual building footprints. At 1:1,000,000 an entire neighborhood is invisible. Scale ratio is the primary driver of detail — not an equal consideration.",
-       "Purpose affects design and projection choices, but for detail level, scale ratio is what determines what you can see. A 1:1,000 map always shows more local detail than a 1:1,000,000 map of the same area, regardless of what either was built for."]},
-  {topic:"Map projections",
-   text:"A sailor in the 1500s needed a map where a straight line between two points always represented a constant compass bearing. Which projection was specifically designed for this?",
-   why:"Different maps were built to solve different problems. Mercator wasn't a design flaw — it was a precision tool. Understanding why a projection exists tells you when to trust it.",
-   visual:null,
-   choices:["The Robinson projection","The Mercator projection","The Peters projection","The Winkel Tripel projection"],correct:1,
-   fc:"Correct. Gerardus Mercator designed his projection in 1569 so sailors could draw a straight line between two ports and follow that compass bearing without adjustment. That straight line is called a rhumb line — and it's why Mercator dominated navigation for centuries.",
-   fw:["Robinson (1963) was designed for aesthetic balance — it compromises between shape and area distortion to produce a visually appealing general-purpose map. It doesn't preserve compass bearings on straight lines and was never intended for navigation.",
-       null,
-       "Peters (1973) was designed for political and educational purposes — to show countries at their true relative size, correcting Mercator's inflation of wealthy northern nations. Navigation was not its concern, and it doesn't serve that function.",
-       "Winkel Tripel (1921) minimizes overall distortion across shape, area, and distance for a balanced appearance. It's now used by National Geographic and the UN for world maps — but like Robinson, it was built for general reference, not maritime navigation."]}
+const qs = [
+  {
+    topic: "Scale & distance",
+    text: "A map has a scale of 1:1,000,000. Two cities measure 4 cm apart on the map. What is the real-world distance?",
+    why: "Map scale tells you the ratio between map distance and real distance. Understanding this lets you use any map as a measuring tool — not just a picture.",
+    visual: `<svg viewBox="0 0 400 75" style="width:100%;display:block;" aria-label="Scale diagram"><rect x="10" y="15" width="380" height="40" rx="4" fill="#E1F5EE" stroke="#5DCAA5" stroke-width="0.5"/><line x1="60" y1="28" x2="60" y2="48" stroke="#085041" stroke-width="1.5"/><line x1="340" y1="28" x2="340" y2="48" stroke="#085041" stroke-width="1.5"/><line x1="60" y1="38" x2="340" y2="38" stroke="#085041" stroke-width="1.5"/><text x="200" y="28" text-anchor="middle" font-size="11" fill="#085041" font-family="'DM Sans', sans-serif">1 cm = 10 km (scale 1:1,000,000)</text><text x="60" y="68" text-anchor="middle" font-size="10" fill="#0F6E56" font-family="'DM Sans', sans-serif">City A</text><text x="340" y="68" text-anchor="middle" font-size="10" fill="#0F6E56" font-family="'DM Sans', sans-serif">City B</text><text x="200" y="68" text-anchor="middle" font-size="10" fill="#0F6E56" font-family="'DM Sans', sans-serif">4 cm on map</text></svg>`,
+    choices: ["4 km", "40 km", "400 km", "4,000 km"],
+    correct: 1,
+    fc: "Exactly right. 4 cm × 1,000,000 = 4,000,000 cm. Convert: ÷ 100,000 = 40 km. The scale is a multiplier — map distance times the ratio gives you real distance.",
+    fw: [
+      "You skipped the scale entirely and treated the map measurement as if it were already in real-world kilometers. The scale 1:1,000,000 means every 1 cm on the map represents 10 km in reality. Always multiply first, then convert units.",
+      null,
+      "You multiplied correctly but stopped too early. 4 cm × 1,000,000 = 4,000,000 cm is right — but there are 100,000 cm in a kilometer, so the final answer is 40 km, not 400. The unit conversion is the step that's easy to skip.",
+      "You multiplied 4 by 1,000,000 and got 4,000,000 — but that's centimeters, not kilometers. Dividing by 100,000 cm/km gives you 40 km. The math was close; the unit conversion was the missing step."
+    ]
+  },
+  {
+    topic: "Latitude & longitude",
+    text: "Which coordinate system would you use to locate an exact point on Earth's surface?",
+    why: "Latitude and longitude form a global grid. Every location on Earth has a unique address using these two numbers — nothing else gives you that precision.",
+    visual: `<svg viewBox="0 0 400 115" style="width:100%;display:block;" aria-label="Globe with latitude and longitude lines"><ellipse cx="200" cy="58" rx="118" ry="52" fill="#E6F1FB" stroke="#378ADD" stroke-width="0.5"/><line x1="82" y1="58" x2="318" y2="58" stroke="#378ADD" stroke-width="1" stroke-dasharray="4,3"/><ellipse cx="200" cy="58" rx="118" ry="17" fill="none" stroke="#378ADD" stroke-width="0.5" stroke-dasharray="4,3"/><ellipse cx="200" cy="58" rx="118" ry="34" fill="none" stroke="#378ADD" stroke-width="0.5" stroke-dasharray="4,3"/><line x1="200" y1="6" x2="200" y2="110" stroke="#D85A30" stroke-width="1" stroke-dasharray="4,3"/><text x="328" y="61" font-size="10" fill="#185FA5" font-family="'DM Sans', sans-serif">Equator (0°)</text><text x="208" y="14" font-size="10" fill="#993C1D" font-family="'DM Sans', sans-serif">Prime Meridian</text><text x="88" y="28" font-size="10" fill="#185FA5" font-family="'DM Sans', sans-serif">Latitude</text><text x="88" y="88" font-size="10" fill="#993C1D" font-family="'DM Sans', sans-serif">Longitude</text></svg>`,
+    choices: ["Topographic contour lines", "Latitude and longitude", "Cardinal directions only", "Map scale"],
+    correct: 1,
+    fc: "Correct. Latitude measures how far north or south from the equator. Longitude measures how far east or west from the prime meridian. Together they create a unique global address for any point on Earth.",
+    fw: [
+      "Contour lines show elevation — how high or low terrain is — not horizontal location on Earth's surface. They'd tell you a point is on a mountain, but not where that mountain sits on the globe.",
+      null,
+      "Cardinal directions tell you which way to travel relative to where you already are. They're relative, not absolute. Without a starting coordinate, they can't pinpoint any specific location.",
+      "Map scale tells you the ratio between map distance and real-world distance. It's a measurement tool, not a location tool — it can tell you how far two points are apart, but not where they are on Earth."
+    ]
+  },
+  {
+    topic: "Map projections",
+    text: "The Mercator projection makes Greenland appear roughly the same size as Africa. In reality, Africa is about 14 times larger. Why does this distortion happen?",
+    why: "No flat map can perfectly represent a sphere. Every projection makes trade-offs. Knowing which trade-off a projection makes tells you what it's useful for — and when to distrust it.",
+    visual: null,
+    choices: ["The mapmaker made an error", "Greenland is actually larger than it looks on other maps", "Flattening a sphere stretches areas near the poles", "Mercator was designed for political purposes"],
+    correct: 2,
+    fc: "Exactly right. When you unroll a sphere onto a flat rectangle, the math forces horizontal stretching at high latitudes to keep grid lines consistent. Mercator preserved direction and local shape — essential for navigation — but paid the price in polar area distortion.",
+    fw: [
+      "Mercator wasn't careless — he was solving a specific engineering problem for sailors in 1569. The distortion is an unavoidable mathematical consequence of converting a sphere to a flat surface while preserving compass directions. It's a trade-off, not a mistake.",
+      "This gets it backwards. Greenland appears much larger than it actually is on Mercator — the projection inflates polar regions, not deflates them. On an equal-area map like Peters, Greenland shrinks dramatically compared to Africa.",
+      null,
+      "Mercator had no political agenda. He built his projection to solve a navigation problem: how to draw a straight line that represents a constant compass bearing. The size distortion at high latitudes is a geometric side effect, not an intention."
+    ]
+  },
+  {
+    topic: "Legend & symbols",
+    text: "You open a map and see a small box in the corner containing colored shapes, lines, and labels. What is this element called, and what is its purpose?",
+    why: "A map without a legend is a picture, not a tool. The legend decodes every symbol, color, and line — making the map readable by anyone, not just the person who made it.",
+    visual: `<svg viewBox="0 0 400 105" style="width:100%;display:block;" aria-label="Map legend example"><rect x="20" y="10" width="165" height="88" rx="6" fill="#FFFFFF" stroke="#E2E2E0" stroke-width="0.5"/><text x="102" y="27" text-anchor="middle" font-size="11" font-weight="500" fill="#1A1A1A" font-family="'DM Sans', sans-serif">Legend</text><circle cx="40" cy="46" r="5" fill="#378ADD"/><text x="52" y="50" font-size="11" fill="#1A1A1A" font-family="'DM Sans', sans-serif">City</text><line x1="33" y1="66" x2="53" y2="66" stroke="#E24B4A" stroke-width="2.5"/><text x="60" y="70" font-size="11" fill="#1A1A1A" font-family="'DM Sans', sans-serif">Highway</text><rect x="33" y="78" width="16" height="11" rx="2" fill="#9FE1CB"/><text x="55" y="87" font-size="11" fill="#1A1A1A" font-family="'DM Sans', sans-serif">Park / forest</text></svg>`,
+    choices: ["The title block — it names the map", "The legend — it explains what symbols mean", "The scale bar — it shows distance", "The compass rose — it shows direction"],
+    correct: 1,
+    fc: "Correct. The legend — also called the key — is the decoder for every symbol, color, line, and pattern on the map. Without it, you're guessing what everything means.",
+    fw: [
+      "The title block names the map and identifies the region and date. It tells you what you're looking at — but it doesn't explain any of the symbols, colors, or lines on the map itself.",
+      null,
+      "The scale bar shows the ratio between map distance and real-world distance. It's a measuring tool. It doesn't decode what any symbol or color represents.",
+      "The compass rose shows orientation — which direction is north, south, east, and west on that map. Essential for navigation, but it doesn't explain any of the symbols or color coding."
+    ]
+  },
+  {
+    topic: "Cardinal directions",
+    text: "On most standard maps, which direction does 'up' typically represent?",
+    why: "Convention, not law. Most modern maps put north at the top — but this wasn't always true. The right habit is to verify orientation with the compass rose before trusting any map.",
+    visual: `<svg viewBox="0 0 400 96" style="width:100%;display:block;" aria-label="Compass rose"><circle cx="200" cy="48" r="38" fill="#F9F9F7" stroke="#E2E2E0" stroke-width="0.5"/><polygon points="200,14 195,43 200,38 205,43" fill="#E24B4A"/><polygon points="200,82 195,53 200,58 205,53" fill="#888780"/><polygon points="165,48 193,43 188,48 193,53" fill="#888780"/><polygon points="235,48 207,43 212,48 207,53" fill="#888780"/><text x="200" y="11" text-anchor="middle" font-size="12" font-weight="500" fill="#A32D2D" font-family="'DM Sans', sans-serif">N</text><text x="200" y="94" text-anchor="middle" font-size="11" fill="#7A7A7A" font-family="'DM Sans', sans-serif">S</text><text x="152" y="52" text-anchor="middle" font-size="11" fill="#7A7A7A" font-family="'DM Sans', sans-serif">W</text><text x="248" y="52" text-anchor="middle" font-size="11" fill="#7A7A7A" font-family="'DM Sans', sans-serif">E</text></svg>`,
+    choices: ["South", "East", "North", "It varies — always check the compass rose"],
+    correct: 3,
+    fc: "Sharp answer. North-up is the dominant modern convention, but the compass rose exists precisely because it isn't guaranteed. Medieval maps often put east at the top — which is where the word 'orientation' comes from. Always verify.",
+    fw: [
+      "South-up maps do exist — some Australian cartographers produce them as a point of perspective — but they're the rare exception. More importantly, the only way to know which way is up on any map is to check the compass rose, which is the real habit this question tests.",
+      "East was actually the top of many medieval maps, which is where the word 'orientation' comes from (orienting toward the orient). But in modern cartography, east-up is uncommon. Either way, assuming direction without checking is the mistake to avoid.",
+      "North is the most common answer and usually correct — but 'usually' is the problem. The right habit isn't knowing the convention; it's verifying with the compass rose every time you open an unfamiliar map. That's what this question is really testing.",
+      null
+    ]
+  },
+  {
+    topic: "Latitude & longitude",
+    text: "A location is described as 0°N, 0°E. What famous geographic intersection does this coordinate represent?",
+    why: "Zero latitude is the equator. Zero longitude is the prime meridian. Where they cross is the origin point of the entire global coordinate system — and it sits in open ocean.",
+    visual: null,
+    choices: ["The North Pole", "The center of the United States", "The intersection of the equator and prime meridian, in the Gulf of Guinea", "Greenwich, England"],
+    correct: 2,
+    fc: "Correct. 0°, 0° sits in the Gulf of Guinea off the west coast of Africa — informally called 'Null Island.' Greenwich is where the prime meridian passes on land, but 0°N, 0°E is in the open ocean.",
+    fw: [
+      "The North Pole is 90°N — maximum latitude, as far north as you can go. At the North Pole, longitude is actually undefined because all meridians converge at the same point. 0°N, 0°E is the geographic opposite — on the equator, at sea level.",
+      "The geographic center of the contiguous United States is roughly 39°N, 98°W — in Kansas. The US sits in the northern and western hemispheres, which means positive latitude and negative longitude. Neither coordinate is anywhere near zero.",
+      null,
+      "Greenwich, England is where the prime meridian (0° longitude) was defined and measured — but Greenwich sits at about 51°N latitude, not 0°N. The equator runs through the ocean far south of England. 0°N, 0°E is where those two lines actually cross."
+    ]
+  },
+  {
+    topic: "Scale & distance",
+    text: "Which map would show more detail about a single neighborhood: one with a scale of 1:1,000 or one with a scale of 1:1,000,000?",
+    why: "Large scale means smaller ratio number and more detail. Small scale means bigger ratio number and less detail. This is one of the most counterintuitive things about maps.",
+    visual: `<svg viewBox="0 0 400 85" style="width:100%;display:block;" aria-label="Large scale vs small scale map comparison"><rect x="10" y="12" width="175" height="62" rx="4" fill="#E1F5EE" stroke="#5DCAA5" stroke-width="0.5"/><text x="97" y="27" text-anchor="middle" font-size="10" fill="#085041" font-weight="500" font-family="'DM Sans', sans-serif">1:1,000 (large scale)</text><rect x="24" y="34" width="14" height="10" rx="2" fill="#5DCAA5"/><rect x="44" y="38" width="20" height="8" rx="2" fill="#5DCAA5"/><rect x="70" y="32" width="18" height="12" rx="2" fill="#5DCAA5"/><rect x="96" y="36" width="24" height="7" rx="2" fill="#5DCAA5"/><text x="97" y="68" text-anchor="middle" font-size="9" fill="#0F6E56" font-family="'DM Sans', sans-serif">Shows streets, buildings</text><rect x="215" y="12" width="175" height="62" rx="4" fill="#FAECE7" stroke="#F0997B" stroke-width="0.5"/><text x="302" y="27" text-anchor="middle" font-size="10" fill="#4A1B0C" font-weight="500" font-family="'DM Sans', sans-serif">1:1,000,000 (small scale)</text><rect x="228" y="32" width="145" height="32" rx="2" fill="#F5C4B3"/><text x="302" y="51" text-anchor="middle" font-size="9" fill="#993C1D" font-family="'DM Sans', sans-serif">Shows countries, regions</text><text x="302" y="68" text-anchor="middle" font-size="9" fill="#993C1D" font-family="'DM Sans', sans-serif">No street-level detail</text></svg>`,
+    choices: ["1:1,000,000 — bigger numbers mean more detail", "1:1,000 — the smaller the ratio, the more detail per area", "They would show equal detail", "It depends on the map's purpose"],
+    correct: 1,
+    fc: "Correct. 1:1,000 means 1 cm = 10 meters — you can show individual buildings. 1:1,000,000 means 1 cm = 10 km — a whole neighborhood barely registers. Counterintuitively, the 'larger scale' map has the smaller ratio number.",
+    fw: [
+      "This is the most common misconception about scale — bigger ratio number does not mean more detail. It means the opposite. A bigger ratio means the real world is compressed more onto the map, so less detail fits. 1:1,000,000 shows countries; 1:1,000 shows buildings.",
+      null,
+      "The two scales show dramatically different detail levels. At 1:1,000 you can map individual building footprints. At 1:1,000,000 an entire neighborhood is invisible. Scale ratio is the primary driver of detail — not an equal consideration.",
+      "Purpose affects design and projection choices, but for detail level, scale ratio is what determines what you can see. A 1:1,000 map always shows more local detail than a 1:1,000,000 map of the same area, regardless of what either was built for."
+    ]
+  },
+  {
+    topic: "Map projections",
+    text: "A sailor in the 1500s needed a map where a straight line between two points always represented a constant compass bearing. Which projection was specifically designed for this?",
+    why: "Different maps were built to solve different problems. Mercator wasn't a design flaw — it was a precision tool. Understanding why a projection exists tells you when to trust it.",
+    visual: null,
+    choices: ["The Robinson projection", "The Mercator projection", "The Peters projection", "The Winkel Tripel projection"],
+    correct: 1,
+    fc: "Correct. Gerardus Mercator designed his projection in 1569 so sailors could draw a straight line between two ports and follow that compass bearing without adjustment. That straight line is called a rhumb line — and it's why Mercator dominated navigation for centuries.",
+    fw: [
+      "Robinson (1963) was designed for aesthetic balance — it compromises between shape and area distortion to produce a visually appealing general-purpose map. It doesn't preserve compass bearings on straight lines and was never intended for navigation.",
+      null,
+      "Peters (1973) was designed for political and educational purposes — to show countries at their true relative size, correcting Mercator's inflation of wealthy northern nations. Navigation was not its concern, and it doesn't serve that function.",
+      "Winkel Tripel (1921) minimizes overall distortion across shape, area, and distance for a balanced appearance. It's now used by National Geographic and the UN for world maps — but like Robinson, it was built for general reference, not maritime navigation."
+    ]
+  }
 ];
 
-let cur=0,score=0,res=[],ans=false;
+let cur = 0, score = 0, res = [], ans = false;
 
-function render(){
-  ans=false;
-  const q=qs[cur];
-  const pct=Math.round((cur/qs.length)*100);
-  document.getElementById('prog').style.width=pct+'%';
-  document.getElementById('qlbl').textContent='Question '+(cur+1)+' of '+qs.length+'  ·  '+q.topic;
-  document.getElementById('qtxt').textContent=q.text;
-  document.getElementById('qwhy').textContent='Why this matters: '+q.why;
-  const vis=document.getElementById('qvis');
-  if(q.visual){vis.style.display='block';vis.innerHTML=q.visual;}
-  else{vis.style.display='none';}
-  const ch=document.getElementById('choices');
-  ch.innerHTML='';
-  q.choices.forEach((c,i)=>{
-    const b=document.createElement('button');
-    b.className='cbtn';b.textContent=c;
-    b.onclick=()=>pick(i);
+function render() {
+  ans = false;
+  const q = qs[cur];
+  const pct = Math.round((cur / qs.length) * 100);
+  document.getElementById('prog').style.width = pct + '%';
+  document.getElementById('qlbl').textContent = 'Question ' + (cur + 1) + ' of ' + qs.length + '  ·  ' + q.topic;
+  document.getElementById('qtxt').textContent = q.text;
+  document.getElementById('qwhy').innerHTML = '<strong>Why this matters:</strong> ' + q.why;
+
+  const vis = document.getElementById('qvis');
+  if (q.visual) { vis.style.display = 'block'; vis.innerHTML = q.visual; }
+  else { vis.style.display = 'none'; }
+
+  const ch = document.getElementById('choices');
+  ch.innerHTML = '';
+  q.choices.forEach((c, i) => {
+    const b = document.createElement('button');
+    b.className = 'cbtn';
+    b.textContent = c;
+    b.onclick = () => pick(i);
     ch.appendChild(b);
   });
-  document.getElementById('feedback').style.display='none';
-  document.getElementById('nxtbtn').style.display='none';
+
+  document.getElementById('feedback').style.display = 'none';
+  document.getElementById('nxtbtn').style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function pick(i){
-  if(ans)return;
-  ans=true;
-  const q=qs[cur];
-  const ok=i===q.correct;
-  if(ok)score++;
-  res.push({topic:q.topic,text:q.text,correct:ok});
-  document.querySelectorAll('.cbtn').forEach((b,j)=>{
-    b.disabled=true;
-    if(j===q.correct)b.classList.add('ok');
-    if(j===i&&!ok)b.classList.add('no');
+function pick(i) {
+  if (ans) return;
+  ans = true;
+  const q = qs[cur];
+  const ok = i === q.correct;
+  if (ok) score++;
+  res.push({ topic: q.topic, text: q.text, correct: ok });
+
+  document.querySelectorAll('.cbtn').forEach((b, j) => {
+    b.disabled = true;
+    if (j === q.correct) b.classList.add('ok');
+    if (j === i && !ok) b.classList.add('no');
   });
-  const fb=document.getElementById('feedback');
-  fb.style.display='block';
-  if(ok){
-    fb.innerHTML=`<div class="fbox ok"><div class="flbl">Correct</div><div>${q.fc}</div></div>`;
+
+  const fb = document.getElementById('feedback');
+  fb.style.display = 'block';
+  if (ok) {
+    fb.innerHTML = `<div class="fbox ok"><div class="flbl">Correct</div><div>${q.fc}</div></div>`;
   } else {
-    const sp=q.fw[i];
-    fb.innerHTML=`<div class="fbox no"><div class="mtag">Common misconception</div><div class="flbl">Not quite — here's where that reasoning breaks down</div><div>${sp}</div><div style="margin-top:.75rem;padding-top:.75rem;border-top:.5px solid #F0997B;font-size:13px;color:#712B13;"><strong>The right answer:</strong> ${q.fc}</div></div>`;
+    const sp = q.fw[i];
+    fb.innerHTML = `<div class="fbox no"><div class="mtag">Common misconception</div><div class="flbl">Not quite — here's where that reasoning breaks down</div><div>${sp}</div><div class="divider"><strong>The right answer:</strong> ${q.fc}</div></div>`;
   }
-  const nb=document.getElementById('nxtbtn');
-  nb.style.display='inline-block';
-  nb.textContent=cur<qs.length-1?'Continue →':'See results →';
+
+  const nb = document.getElementById('nxtbtn');
+  nb.style.display = 'inline-block';
+  nb.textContent = cur < qs.length - 1 ? 'Continue →' : 'See results →';
 }
 
-function next(){
+function next() {
   cur++;
-  if(cur>=qs.length){showResults();}
-  else{render();}
+  if (cur >= qs.length) { showResults(); }
+  else { render(); }
 }
 
-function showResults(){
+function showResults() {
   document.getElementById('qscreen').classList.remove('active');
   document.getElementById('results').classList.add('active');
-  const pct=Math.round((score/qs.length)*100);
-  document.getElementById('spct').textContent=pct+'%';
-  document.getElementById('sc').textContent=score;
-  document.getElementById('sw').textContent=qs.length-score;
-  document.getElementById('st').textContent=qs.length;
-  setTimeout(()=>{
-    const c=2*Math.PI*42;
-    document.getElementById('sarc').style.strokeDashoffset=c-(pct/100)*c;
-  },100);
-  const rl=document.getElementById('rlist');
-  rl.innerHTML='';
-  res.forEach(r=>{
-    const d=document.createElement('div');
-    d.className='ri '+(r.correct?'rg':'rb');
-    d.innerHTML=`<span style="font-size:11px;color:var(--color-text-secondary);">${r.topic}</span><br><span style="color:var(--color-text-primary);">${r.text.slice(0,80)}${r.text.length>80?'…':''}</span>`;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  const pct = Math.round((score / qs.length) * 100);
+  document.getElementById('spct').textContent = pct + '%';
+  document.getElementById('sc').textContent = score;
+  document.getElementById('sw').textContent = qs.length - score;
+  document.getElementById('st').textContent = qs.length;
+
+  setTimeout(() => {
+    const c = 2 * Math.PI * 42;
+    document.getElementById('sarc').style.strokeDashoffset = c - (pct / 100) * c;
+  }, 150);
+
+  const rl = document.getElementById('rlist');
+  rl.innerHTML = '';
+  res.forEach(r => {
+    const d = document.createElement('div');
+    d.className = 'ri ' + (r.correct ? 'rg' : 'rb');
+    d.innerHTML = `<span style="font-size:11px;color:#7A7A7A;font-weight:500;">${r.topic}</span><br><span style="color:#1A1A1A;">${r.text.slice(0, 80)}${r.text.length > 80 ? '…' : ''}</span>`;
     rl.appendChild(d);
   });
 }
 
-function restart(){
-  cur=0;score=0;res=[];ans=false;
+function restart() {
+  cur = 0; score = 0; res = []; ans = false;
   document.getElementById('results').classList.remove('active');
   document.getElementById('qscreen').classList.add('active');
   render();
@@ -234,3 +596,5 @@ function restart(){
 
 render();
 </script>
+</body>
+</html>
